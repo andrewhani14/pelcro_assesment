@@ -14,8 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::latest()->paginate(4);
-
+        $customers = Customer::all();
         return view('customer.index', compact('customers'))->with(request()->input('page'));
     }
 
@@ -59,7 +58,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -70,7 +69,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -82,7 +81,18 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'user_name' => 'required',
+            'salary' => 'required',
+            'status' => 'required'
+        ]);
+
+        $customer->update($request->all());
+
+        return redirect()->route('customer.index')->with('success', 'Successfully updated customer');
     }
 
     /**
@@ -93,6 +103,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->route('customer.index')->with('success', 'Successfully deleted customer');
     }
 }
