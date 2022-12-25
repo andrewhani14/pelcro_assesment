@@ -4,61 +4,71 @@ Add new
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Add New Customer</h2>
-        </div>
+
+<div class="container">
+	<header class="header">
+		<h1 id="title" class="text-center">Add a Customer</h1>
         <div class="pull-right">
             <a class="btn btn-primary" href="{{ route('customer.index') }}">Back</a>
         </div>
-    </div>
-</div>
+	</header>
+	<div class="form-wrap">	
+		<form action="{{ route('customer.store') }}" method="POST">
+            @csrf
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="first_name">First Name</label>
+						<input type="text" name="first_name" placeholder="Enter your first name" class="form-control">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="last_name">Last Name</label>
+						<input type="text" name="last_name" placeholder="Enter your last name" class="form-control">
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="email">Email <small>(Must be a valid email)</small></label>
+						<input type="email" name="email" class="form-control" placeholder="Enter your email" >
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="user_name">Username <small>(Must be unique)</small></label>
+						<input type="text" name="user_name" class="form-control" placeholder="Enter your username" >
+					</div>
+				</div>
+			</div>
 
-<form action="{{ route('customer.store') }}" method="POST">
-    @csrf
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>First Name:</strong>
-                    <input type="text" name= "first_name" class="form-control" placeholder= "First Name">
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Last Name:</strong>
-                    <input type="text" name= "last_name" class="form-control" placeholder= "Last Name">
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    <input type="text" name= "email" class="form-control" placeholder= "Email">
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Username:</strong>
-                    <input type="text" name= "user_name" class="form-control" placeholder= "Username">
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Salary:</strong>
-                    <input type="number" name= "salary" class="form-control" placeholder= "Salary">
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <div class="form-group">
-                    <strong>Status:</strong>
-                    <input type="text" name= "status" class="form-control" placeholder= "Status">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-</form>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Salary</label>
+                        <input type="number" name= "salary" class="form-control" placeholder= "Enter your salary">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Status</label>
+                        <input type="tinyint" name= "status" class="form-control" placeholder= "Enter your status">
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-4 ">
+					<button type="submit" class="btn btn-primary btn-block">Submit</button>
+				</div>
+			</div>
+
+		</form>
+	</div>	
+</div>
 
 @if ($errors->any ())
     <div class="alert alert-danger">

@@ -4,16 +4,12 @@ List
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-t b">
-            <div class="pull-left">
-                <h2>Customers</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('customer.create') }}"> Add a New Customer <i class="fas fa-plus-circle"></i></a>
-            </div>
-        </div>
+<header class="header">
+    <h1 id="title" class="text-center">Customers</h1>
+    <div class="pull-right">
+        <a class="btn btn-primary" href="{{ route('customer.create') }}"> Add a New Customer <i class="fas fa-plus-circle"></i></a>
     </div>
+</header>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -22,7 +18,7 @@ List
     @endif
 
     <table class="table table-bordered table-responsive-lg table-hover">
-        <thead class="thead-dark">
+        <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">First Name</th>
@@ -40,12 +36,12 @@ List
                     <td>{{ $customer->last_name }}</td>
                     <td>{{ $customer->email }}</td>
                     <td>{{ date_format($customer->created_at, 'jS M Y') }}</td>
-                    <td>
+                    <td style="text-align: center">
                         <form action="{{ route('customer.destroy', $customer->id) }}" method="POST">
 
                             <a data-toggle="modal" id="mediumButton" data-target="#mediumModal"
                                 data-attr="{{ route('customer.show', $customer->id) }}" title="show">
-                                <i class="fas fa-eye text-success  fa-lg"></i>
+                                <i class="fas fa-eye text-primary fa-lg"></i>
                             </a>
                             <a class="text-secondary" href="{{ route('customer.edit', $customer->id) }}"> <i class="fas fa-edit text-gray-300"></i></a>
                             @csrf
@@ -63,8 +59,7 @@ List
 
 
     <!-- medium modal -->
-    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

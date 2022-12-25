@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
@@ -39,13 +40,19 @@ class CustomerController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required',
-            'user_name' => 'required',
+            'email' => 'required|email',
+            'user_name' => 'bail|required|unique:customers,user_name',
             'salary' => 'required',
             'status' => 'required'
         ]);
 
-        Customer::create($request->all());
+        $customer = Customer::create($request->all());
+
+        Mail::send('email',$customer->toArray(),
+        function($message){
+            $message->to('andrewhani14@gmail.com',"Customer")->subject('Customer created successfully');
+        }
+        );
 
         return redirect()->route('customer.index')->with('success', 'Successfully added customer');
     } 
